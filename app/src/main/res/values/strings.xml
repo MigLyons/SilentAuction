@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ShhhAuction</string>
+    <string name="Confirm_message">Confirm bid? This action cannot be undone.</string>
+    <string name="confirm_bid">Confirm</string>
+    <string name="cancel_bid">Cancel</string>
+    <string name="continue_button">Continue Bidding</string>
+    <string name="placeholder">text</string>
+</resources>
