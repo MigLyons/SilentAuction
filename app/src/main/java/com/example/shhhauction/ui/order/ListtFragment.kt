@@ -37,7 +37,7 @@ class ListtFragment : Fragment() {
             viewModel = sharedViewModel
             listtFragment = this@ListtFragment
         }
-        val adapter = AuctionItemAdapter(sharedViewModel.auctionItems)
+        val adapter = AuctionItemAdapter()
         _binding?.recyclerListView?.adapter = adapter
     }
 

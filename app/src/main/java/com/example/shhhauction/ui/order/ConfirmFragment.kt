@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.shhhauction.R
 import com.example.shhhauction.databinding.FragmentConfirmBinding
@@ -37,13 +38,14 @@ class ConfirmFragment : Fragment() {
             viewModel = sharedViewModel
             confirmFragment = this@ConfirmFragment
         }
-    }
 
-    fun cancelBid(){
-        findNavController().navigate(R.id.action_confirmFragment_to_listtFragment)
-    }
-    fun bidAndContinue(item: String){
-        sharedViewModel.makeBid(item)
-        findNavController().navigate(R.id.action_confirmFragment_to_listtFragment)
+        fun cancelBid() {
+            findNavController().navigate(R.id.action_confirmFragment_to_listtFragment)
+        }
+
+        fun bidAndContinue(item: String) {
+            sharedViewModel.makeBid(item)
+            findNavController().navigate(R.id.action_confirmFragment_to_listtFragment)
+        }
     }
 }

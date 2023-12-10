@@ -25,37 +25,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/detail_item_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/detail_img_name"
+                android:id="@+id/detail_item_name"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 tools:text="detail name"
-                app:layout_constraintStart_toStartOf="@id/detail_item_img"
-                app:layout_constraintTop_toBottomOf="@id/detail_item_img"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_item_desc"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@id/detail_img_name"
-                app:layout_constraintStart_toStartOf="@id/detail_item_img" />
+                app:layout_constraintTop_toBottomOf="@id/detail_item_name"
+                app:layout_constraintStart_toStartOf="parent" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_item_highestBid"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@id/detail_item_img"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_item_desc" />
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +57,7 @@
                 android:id="@+id/detail_item_bidIncrement"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@id/detail_item_img"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_item_highestBid" />
 
 

@@ -12,20 +12,26 @@ import com.example.shhhauction.databinding.ListtItemBinding
 import com.example.shhhauction.model.AuctionItem
 import androidx.recyclerview.widget.ListAdapter
 import com.example.shhhauction.R
+import com.example.shhhauction.data.DataSource.auctionItems
+import com.example.shhhauction.databinding.FragmentDetailBinding
 import com.example.shhhauction.model.OrderViewModel
 
-class AuctionItemAdapter(private val auctionItems: Map<>) :
+class AuctionItemAdapter() :
         RecyclerView.Adapter<AuctionItemAdapter.AuctionItemViewHolder>() {
 
 
     private lateinit var  context: Context
 
-            class AuctionItemViewHolder(private var binding: FragmentListtBinding) :
+            class AuctionItemViewHolder(private var binding: ListtItemBinding) :
                     RecyclerView.ViewHolder(binding.root) {
-                val item_name = binding.findViewById(R.id.item_name)
+
+                        fun bind(item: AuctionItem, context: Context){
+                            binding.itemName.text = item.name
+                            binding.itemBidIncrement.text = item.bidIncrement.toString()
+                            binding.itemHighestBid.text = item.highestBid.toString()
+                        }
+
                     }
-
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,7 +39,7 @@ class AuctionItemAdapter(private val auctionItems: Map<>) :
     ): AuctionItemViewHolder {
         context = parent.context
         return AuctionItemViewHolder(
-            FragmentListtBinding.inflate(
+            ListtItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -44,11 +50,6 @@ class AuctionItemAdapter(private val auctionItems: Map<>) :
     }
 
     override fun onBindViewHolder(holder: AuctionItemViewHolder, position: Int) {
-        val item = auctionItems[position]
-        holder.item_name.text = item.name
-        holder.item_highest_bid.text = item.highestBid
-        holder.item_bid_increment.text = item.bidIncrement
-
     }
 
 }
