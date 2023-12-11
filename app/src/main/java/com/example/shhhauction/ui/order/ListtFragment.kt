@@ -7,15 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shhhauction.AuctionApplication
 import com.example.shhhauction.R
 import com.example.shhhauction.databinding.FragmentListtBinding
+import com.example.shhhauction.databinding.FragmentSummaryBinding
+import com.example.shhhauction.model.AuctionItemDao
+import com.example.shhhauction.model.AuctionViewModelFactory
 import com.example.shhhauction.model.OrderViewModel
 
 class ListtFragment : Fragment() {
     private var _binding: FragmentListtBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedViewModel: OrderViewModel by activityViewModels()
+    private val sharedViewModel: OrderViewModel by activityViewModels{
+        AuctionViewModelFactory(
+            (activity?.application as AuctionApplication).database.auctionItemDao()
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +39,32 @@ class ListtFragment : Fragment() {
         return root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
+        val adapter = AuctionItemAdapter{
+            val action = (ListtFragmentDirections.actionListtFragmentToDetailFragment(it.id))
+            this.findNavController().navigate(action)
+        }
+        _binding?.recyclerListView?.adapter = adapter
+        sharedViewModel.auctionItems.observe(this.viewLifecycleOwner){
+                items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
+        binding.recyclerListView.layoutManager = LinearLayoutManager(this.context)
+        binding.floatingActionButton.setOnClickListener {
+            val action = ListtFragmentDirections.actionListtFragmentToAddFragment(
+                id
+            )
+            this.findNavController().navigate(action)
+        }
+        /*binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
             listtFragment = this@ListtFragment
-        }
-        val adapter = AuctionItemAdapter()
-        _binding?.recyclerListView?.adapter = adapter
-    }
-
-    fun goToNextScreen() {
-        findNavController().navigate(R.id.action_listtFragment_to_detailFragment)
+        }*/
     }
 
     override fun onDestroyView() {

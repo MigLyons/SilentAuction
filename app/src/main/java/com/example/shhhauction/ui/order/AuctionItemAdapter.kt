@@ -16,8 +16,8 @@ import com.example.shhhauction.data.DataSource.auctionItems
 import com.example.shhhauction.databinding.FragmentDetailBinding
 import com.example.shhhauction.model.OrderViewModel
 
-class AuctionItemAdapter() :
-        RecyclerView.Adapter<AuctionItemAdapter.AuctionItemViewHolder>() {
+class AuctionItemAdapter(private val OnItemClicked: (AuctionItem) -> Unit) :
+        ListAdapter<AuctionItem, AuctionItemAdapter.AuctionItemViewHolder>(DiffCallback) {
 
 
     private lateinit var  context: Context
@@ -52,4 +52,15 @@ class AuctionItemAdapter() :
     override fun onBindViewHolder(holder: AuctionItemViewHolder, position: Int) {
     }
 
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<AuctionItem>() {
+            override fun areItemsTheSame(oldItem: AuctionItem, newItem: AuctionItem): Boolean {
+                return oldItem === newItem
+            }
+
+            override fun areContentsTheSame(oldItem: AuctionItem, newItem: AuctionItem) : Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
+    }
 }

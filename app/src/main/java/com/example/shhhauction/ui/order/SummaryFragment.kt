@@ -14,6 +14,7 @@ import com.example.shhhauction.model.OrderViewModel
 class SummaryFragment : Fragment() {
     private var _binding: FragmentSummaryBinding? = null
     private val binding get() = _binding!!
+
     private val sharedViewModel: OrderViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -39,9 +40,9 @@ class SummaryFragment : Fragment() {
         }
     }
 
-    fun continueBidding(){
+    /*fun continueBidding(){
         findNavController().navigate(R.id.action_summaryFragment_to_listtFragment)
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

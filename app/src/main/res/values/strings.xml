@@ -5,4 +5,12 @@
     <string name="cancel_bid">Cancel</string>
     <string name="continue_button">Continue Bidding</string>
     <string name="placeholder">text</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="currency_symbol">$</string>
+    <string name="item_price_req">Bid Increment - Required</string>
+    <string name="item_name_req">Item Name</string>
+    <string name="quantity_req">Quantity:</string>
+    <string name="save_action">Save?</string>
+    <string name="add_new_item">Add new item</string>
 </resources>

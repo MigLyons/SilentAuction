@@ -10,6 +10,7 @@
         <variable
             name="viewModel"
             type="com.example.shhhauction.model.OrderViewModel" />
+
         <variable
             name="summaryFragment"
             type="com.example.shhhauction.ui.order.SummaryFragment" />
@@ -27,6 +28,7 @@
         android:scrollbars="horizontal"
         android:padding="8dp"
         android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     <Button
@@ -35,7 +37,6 @@
         android:id="@+id/continueBiddingButton"
         android:layout_margin="8dp"
         android:text="@string/continue_button"
-        android:onClick='@{() -> summaryFragment.continueBidding()}'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

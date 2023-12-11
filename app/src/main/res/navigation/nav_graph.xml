@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/listtFragment">
 
     <fragment
         android:id="@+id/listtFragment"
         android:name="com.example.shhhauction.ui.order.ListtFragment"
-        android:label="Auction Items" />
+        android:label="2023 Silent Auction" />
         <action
             android:id="@+id/action_listtFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_listtFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+
     <fragment
         android:label="Item Details"
         android:name="com.example.shhhauction.ui.order.DetailFragment"
         android:id="@+id/detailFragment">
+
+        <argument
+            android:name="item_id"
+            app:argType="integer" />
+
         <action
-            android:id="@+id/action_detailFragment_to_confirmFragment"
-            app:destination="@id/confirmFragment" />
-        <action
-            android:id="@+id/action_detailFragment_to_listtFragment"
-            app:destination="@id/listtFragment" />
+            android:id="@+id/action_detailFragment_to_addFragment"
+            app:destination="@id/addFragment">
+        </action>
     </fragment>
+
     <fragment
-        android:id="@+id/confirmFragment"
-        android:name="com.example.shhhauction.ui.order.ConfirmFragment"
-        android:label="Confirm Bid">
+        android:id="@+id/addFragment"
+        android:name="com.example.shhhauction.ui.order.AddFragment"
+        android:label="Add Item">
+        <argument
+            android:name="item_id"
+            app:argType="integer" />
+
         <action
-            android:id="@+id/action_confirmFragment_to_listtFragment"
+            android:id="@+id/action_addFragment_to_listtFragment"
             app:destination="@id/listtFragment" />
+
+
     </fragment>
 </navigation>

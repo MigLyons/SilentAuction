@@ -18,7 +18,7 @@ interface AuctionItemDao {
     suspend fun delete(auctionItem: AuctionItem)
 
     @Query("SELECT * from auctionItem WHERE id = :id")
-    fun getItem(name: String): Flow<AuctionItem>
+    fun getItem(id: Int): Flow<AuctionItem>
 
     @Query("SELECT * from auctionItem ORDER BY name ASC")
     fun getItems(): Flow<List<AuctionItem>>
