@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ShhhAuction</string>
-    <string name="Confirm_message">Confirm bid? This action cannot be undone.</string>
+    <string name="Confirm_bid_message">Confirm bid? This action cannot be undone.</string>
+    <string name="Confirm_delete_message">Confirm delete? This action cannot be undone.</string>
     <string name="confirm_bid">Confirm</string>
     <string name="cancel_bid">Cancel</string>
     <string name="continue_button">Continue Bidding</string>
@@ -8,9 +9,17 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="currency_symbol">$</string>
-    <string name="item_price_req">Bid Increment - Required</string>
+    <string name="item_price_req">Bid Increment: </string>
     <string name="item_name_req">Item Name</string>
     <string name="quantity_req">Quantity:</string>
     <string name="save_action">Save?</string>
     <string name="add_new_item">Add new item</string>
+    <string name="description_hint">Description:</string>
+    <string name="starting_bid_hint">Starting bid: </string>
+    <string name="highest_bid_hint">Highest bid:</string>
+    <string name="bid">Bid</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="highestBid">Highest bid: </string>
+    <string name="bidIncrement">Bidding increment: </string>
 </resources>

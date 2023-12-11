@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.shhhauction.ui.order.DetailFragmentDirections
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 
@@ -23,7 +26,6 @@ import java.text.NumberFormat
 
 class OrderViewModel(private val auctionItemDao: AuctionItemDao): ViewModel() {
 
-    //map of auction items
     val auctionItems : LiveData<List<AuctionItem>> = auctionItemDao.getItems().asLiveData()
 
 
@@ -32,15 +34,17 @@ class OrderViewModel(private val auctionItemDao: AuctionItemDao): ViewModel() {
         NumberFormat.getCurrencyInstance().format(it)
     }
 
-    private var _bidList = mutableListOf<Int>()
-    val bidList = _bidList.toList()
-
     fun makeBid(auctionItem: AuctionItem){
         //update item.highestBid
-        auctionItem.highestBid += auctionItem.bidIncrement
-        //update bidList
-        _bidList.add(auctionItem.id)
-        //update subtotal: add bid to subtotal
+        val newHighest = auctionItem.highestBid + auctionItem.bidIncrement
+        updateItem(
+            auctionItem.id,
+            auctionItem.name,
+            auctionItem.description,
+            newHighest.toString(),
+            auctionItem.bidIncrement.toString(),
+            auctionItem.startingBid.toString()
+        )
         if(_total.value != null){
             _total.value = _total.value!! + auctionItem.bidIncrement
         } else {
@@ -81,11 +85,17 @@ class OrderViewModel(private val auctionItemDao: AuctionItemDao): ViewModel() {
         }
     }
 
-    fun addNewItem(name: String, description: String, highestBid: String, startingBid: String, bidIncrement: String) {
-        val newItem = getNewItemEntry(name, description, highestBid, startingBid, bidIncrement)
+    fun addNewItem(name: String,
+                   description: String,
+                   highestBid: String,
+                   bidIncrement: String,
+                   startingBid: String) {
+        val newItem = getNewItemEntry(name, description, highestBid, bidIncrement, startingBid)
         insertItem(newItem)
     }
-    fun isEntryValid(name: String, description: String, bidIncrement: String): Boolean {
+    fun isEntryValid(name: String,
+                     description: String,
+                     bidIncrement: String): Boolean {
         if (name.isBlank() || bidIncrement.isBlank() || description.isBlank()) {
             return false
         }

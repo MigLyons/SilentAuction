@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.shhhauction.AuctionApplication
@@ -57,15 +58,6 @@ class DetailFragment : Fragment() {
             auctionItem = selectedItem
             bind(auctionItem)
         }
-
-        /*
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-            viewModel = sharedViewModel
-            detailFragment = this@DetailFragment
-        }
-        */
-
     }
 
     private fun bind(auctionItem: AuctionItem) {
@@ -74,21 +66,24 @@ class DetailFragment : Fragment() {
             detailItemDesc.text = auctionItem.description
             detailItemHighestBid.text = auctionItem.highestBid.toString()
             detailItemBidIncrement.text = auctionItem.bidIncrement.toString()
-            bidButton.setOnClickListener {
-                showConfirmationDialog()
-                viewModel?.makeBid(auctionItem
-                ) }
-            deleteButton.setOnClickListener { showConfirmationDialog() }
+            bidButton.setOnClickListener { bidOnItem() }
+            deleteButton.setOnClickListener { showDeleteConfirmationDialog() }
             editButton.setOnClickListener { editItem() }
 
         }
     }
 
+    private fun bidOnItem(){
+        showBidConfirmationDialog()
+        findNavController().navigateUp()
+
+
+    }
+
     private fun editItem() {
-        val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(
-            auctionItem.id
-        )
-        this.findNavController().navigate(action)
+        val deetToAdd = DetailFragmentDirections.actionDetailFragmentToAddFragment()
+        deetToAdd.itemId = auctionItem.id
+        this.findNavController().navigate(deetToAdd)
     }
 
     private fun deleteItem() {
@@ -96,10 +91,22 @@ class DetailFragment : Fragment() {
         findNavController().navigateUp()
     }
 
-    private fun showConfirmationDialog() {
+    private fun showBidConfirmationDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(android.R.string.dialog_alert_title))
-            .setMessage(getString(R.string.Confirm_message))
+            .setMessage(getString(R.string.Confirm_bid_message))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.no)) { _, _ -> }
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.makeBid(auctionItem)
+            }
+            .show()
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(android.R.string.dialog_alert_title))
+            .setMessage(getString(R.string.Confirm_delete_message))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { _, _ -> }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -108,7 +115,8 @@ class DetailFragment : Fragment() {
             .show()
     }
 
-/*
+
+    /*
     fun goToNextScreen() {
         findNavController().navigate(R.id.action_detailFragment_to_confirmFragment)
     }

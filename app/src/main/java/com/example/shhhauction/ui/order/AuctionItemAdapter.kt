@@ -16,41 +16,41 @@ import com.example.shhhauction.data.DataSource.auctionItems
 import com.example.shhhauction.databinding.FragmentDetailBinding
 import com.example.shhhauction.model.OrderViewModel
 
-class AuctionItemAdapter(private val OnItemClicked: (AuctionItem) -> Unit) :
+class AuctionItemAdapter(private val onItemClicked: (AuctionItem) -> Unit) :
         ListAdapter<AuctionItem, AuctionItemAdapter.AuctionItemViewHolder>(DiffCallback) {
 
-
-    private lateinit var  context: Context
-
-            class AuctionItemViewHolder(private var binding: ListtItemBinding) :
-                    RecyclerView.ViewHolder(binding.root) {
-
-                        fun bind(item: AuctionItem, context: Context){
-                            binding.itemName.text = item.name
-                            binding.itemBidIncrement.text = item.bidIncrement.toString()
-                            binding.itemHighestBid.text = item.highestBid.toString()
-                        }
-
-                    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AuctionItemViewHolder {
-        context = parent.context
+    ): AuctionItemAdapter.AuctionItemViewHolder {
         return AuctionItemViewHolder(
             ListtItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
+                LayoutInflater.from(
+                    parent.context)
             )
         )
     }
 
-    override fun getItemCount(): Int {
-        return auctionItems.size
+    override fun onBindViewHolder(holder: AuctionItemViewHolder, position: Int) {
+        val currentItem = getItem(position)
+        holder.itemView.setOnClickListener {
+            onItemClicked(currentItem)
+        }
+        holder.bind(currentItem)
+
     }
 
-    override fun onBindViewHolder(holder: AuctionItemViewHolder, position: Int) {
+    class AuctionItemViewHolder(private var binding: ListtItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(auctionItem: AuctionItem){
+            binding.itemName.text = auctionItem.name
+            binding.itemHighestBid.text = auctionItem.highestBid.toString()
+        }
+
     }
+
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<AuctionItem>() {

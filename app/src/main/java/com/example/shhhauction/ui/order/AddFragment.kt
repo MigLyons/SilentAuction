@@ -26,7 +26,7 @@ class AddFragment : Fragment() {
         )
     }
     lateinit var auctionItem: AuctionItem
-    private val navigationArgs: AddFragmentArgs by navArgs()
+    private val navigationArgs: DetailFragmentArgs by navArgs()
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
@@ -48,42 +48,19 @@ class AddFragment : Fragment() {
         )
     }
 
-    private fun addNewItem(auctionItem: AuctionItem){
+    private fun addNewItem(){
         if(isEntryValid()) {
             viewModel.addNewItem(
                 binding.itemName.text.toString(),
                 binding.itemDescription.text.toString(),
-                binding.startingBid.toString(),
+                binding.startingBid.text.toString(),
                 binding.bidIncrement.text.toString(),
-                binding.highestBid.toString()
+                binding.highestBid.text.toString()
                 )
         }
         val action = AddFragmentDirections.actionAddFragmentToListtFragment()
         findNavController().navigate(action)
     }
-
-    private fun bind(auctionItem: AuctionItem) {
-        binding.apply {
-            itemName.setText(auctionItem.name, TextView.BufferType.SPANNABLE)
-            itemDescription.setText(auctionItem.description, TextView.BufferType.SPANNABLE)
-            bidIncrement.setText(auctionItem.bidIncrement.toString(), TextView.BufferType.SPANNABLE)
-            saveAction.setOnClickListener { updateItem() }
-        }
-    }
-
-    private fun updateItem() {
-        if (isEntryValid()) {
-            viewModel.updateItem(
-                this.navigationArgs.itemId,
-                this.binding.itemName.text.toString(),
-                this.binding.itemDescription.text.toString(),
-                this.auctionItem.startingBid.toString(),
-                this.binding.bidIncrement.toString(),
-                this.auctionItem.highestBid.toString()
-            )
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -95,13 +72,42 @@ class AddFragment : Fragment() {
             }
         } else {
             binding.saveAction.setOnClickListener {
-                addNewItem(auctionItem)
+                addNewItem()
             }
             binding.saveAction.setOnClickListener {
-                addNewItem(auctionItem)
+                addNewItem()
             }
         }
     }
+
+
+    private fun bind(auctionItem: AuctionItem) {
+        val price = "%.2f".format(auctionItem.highestBid)
+        binding.apply {
+            itemName.setText(auctionItem.name, TextView.BufferType.SPANNABLE)
+            itemDescription.setText(auctionItem.description, TextView.BufferType.SPANNABLE)
+            bidIncrement.setText(auctionItem.bidIncrement.toString(), TextView.BufferType.SPANNABLE)
+            startingBid.setText(auctionItem.startingBid.toString(), TextView.BufferType.SPANNABLE)
+            highestBid.setText(price, TextView.BufferType.SPANNABLE)
+            saveAction.setOnClickListener { updateItem() }
+        }
+    }
+
+    private fun updateItem() {
+        if (isEntryValid()) {
+            viewModel.updateItem(
+                this.navigationArgs.itemId,
+                this.binding.itemName.text.toString(),
+                this.binding.itemDescription.text.toString(),
+                this.binding.highestBid.text.toString(),
+                this.binding.bidIncrement.text.toString(),
+                this.binding.startingBid.text.toString(),
+            )
+            val action = AddFragmentDirections.actionAddFragmentToListtFragment()
+            findNavController().navigate(action)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         // Hide keyboard.

@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout   xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.order.ListtFragment">
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.shhhauction.model.OrderViewModel" />
-        <variable
-            name="listtFragment"
-            type="com.example.shhhauction.ui.order.ListtFragment" />
-    </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/margin">
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".ui.order.ListtFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recycler_list_view"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
+        android:scrollbars="vertical"
         android:padding="8dp"
         android:layout_gravity="center"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="parent"/>
+       app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -41,5 +32,3 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>

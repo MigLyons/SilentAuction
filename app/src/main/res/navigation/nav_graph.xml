@@ -29,14 +29,21 @@
             android:id="@+id/action_detailFragment_to_addFragment"
             app:destination="@id/addFragment">
         </action>
+
+        <action
+            android:id="@+id/action_detailFragment_to_listtFragment"
+            app:destination="@id/listtFragment">
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.shhhauction.ui.order.AddFragment"
         android:label="Add Item">
+
         <argument
             android:name="item_id"
+            android:defaultValue="-1"
             app:argType="integer" />
 
         <action

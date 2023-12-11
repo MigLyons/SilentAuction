@@ -47,17 +47,14 @@ class ListtFragment : Fragment() {
             this.findNavController().navigate(action)
         }
         _binding?.recyclerListView?.adapter = adapter
-        sharedViewModel.auctionItems.observe(this.viewLifecycleOwner){
-                items ->
+        sharedViewModel.auctionItems.observe(this.viewLifecycleOwner){ items ->
             items.let {
                 adapter.submitList(it)
             }
         }
         binding.recyclerListView.layoutManager = LinearLayoutManager(this.context)
         binding.floatingActionButton.setOnClickListener {
-            val action = ListtFragmentDirections.actionListtFragmentToAddFragment(
-                id
-            )
+            val action = ListtFragmentDirections.actionListtFragmentToAddFragment()
             this.findNavController().navigate(action)
         }
         /*binding.apply {
@@ -67,9 +64,9 @@ class ListtFragment : Fragment() {
         }*/
     }
 
-    override fun onDestroyView() {
+    /*override fun onDestroyView() {
         super.onDestroyView()
             _binding = null
-        }
+        } */
 
     }
